@@ -1,37 +1,25 @@
 # $Id$
 
-pkgname=glacier-testtool-git
-
-pkgver=0.1.r34.g11db387
-
+pkgname=glacier-testtool
+pkgver=0.2.1
 pkgrel=1
 pkgdesc="Nemo hardware tester"
 arch=('x86_64' 'aarch64')
 url="https://github.com/nemomobile-ux/glacier-testtool"
 license=('BSD-3-Clause' 'LGPL-2.1-only')
-depends=('qt5-glacier-app-git' 'qt5-sensors-sensorfw' 'qt5-charts')
-makedepends=('git' 'cmake' 'qt5-tools')
-provides=("${pkgname%-git}")
-conflicts=("${pkgname%-git}")
-source=("${pkgname}::git+${url}")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd "${srcdir}/${pkgname}"
-  ( set -o pipefail
-    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
-    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-  ) 2>/dev/null
-}
+depends=('qt5-glacier-app' 'qt5-sensors-sensorfw' 'qt5-charts')
+makedepends=('cmake' 'qt5-tools')
+source=("${url}/archive/refs/tags/$pkgver.tar.gz")
+sha256sums=('34103698509cc7cdbb1f712be2938464044ecefb9016456c12475542b83ff064')
 
 build() {
+    cd $pkgname-$pkgver
     cmake \
-        -B "${pkgname}/build" \
-        -S "${pkgname}" \
         -DCMAKE_INSTALL_PREFIX:PATH='/usr'
-    make -C "${pkgname}/build" all
+    make all
 }
 
 package() {
-    make -C "${srcdir}/${pkgname}/build" DESTDIR="$pkgdir" install
+    cd $pkgname-$pkgver
+    make DESTDIR="$pkgdir" install
 }
