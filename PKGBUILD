@@ -1,7 +1,7 @@
 # $Id$
 
 pkgname=glacier-testtool
-pkgver=0.2.1
+pkgver=0.2.2
 pkgrel=1
 pkgdesc="Nemo hardware tester"
 arch=('x86_64' 'aarch64')
@@ -10,7 +10,7 @@ license=('BSD-3-Clause' 'LGPL-2.1-only')
 depends=('qt5-glacier-app' 'qt5-sensors-sensorfw' 'qt5-charts')
 makedepends=('cmake' 'qt5-tools')
 source=("${url}/archive/refs/tags/$pkgver.tar.gz")
-sha256sums=('34103698509cc7cdbb1f712be2938464044ecefb9016456c12475542b83ff064')
+sha256sums=('010fb1a80e0ac1dbeae6b76ee9c316441408927427e78bb23eefa08c81b7ec29')
 
 build() {
     cd $pkgname-$pkgver
